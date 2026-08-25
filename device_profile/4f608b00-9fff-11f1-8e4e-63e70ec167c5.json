@@ -1,0 +1,1229 @@
+{
+  "entityType" : "DEVICE_PROFILE",
+  "entity" : {
+    "default" : false,
+    "defaultDashboardId" : null,
+    "defaultEdgeRuleChainId" : null,
+    "defaultQueueName" : "Main",
+    "defaultRuleChainId" : {
+      "entityType" : "RULE_CHAIN",
+      "id" : "1332bf30-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "description" : "",
+    "externalId" : null,
+    "firmwareId" : null,
+    "id" : {
+      "entityType" : "DEVICE_PROFILE",
+      "id" : "4f608b00-9fff-11f1-8e4e-63e70ec167c5"
+    },
+    "image" : null,
+    "name" : "SME Generator",
+    "profileData" : {
+      "alarms" : null,
+      "configuration" : {
+        "type" : "DEFAULT"
+      },
+      "provisionConfiguration" : {
+        "type" : "DISABLED",
+        "provisionDeviceSecret" : null
+      },
+      "transportConfiguration" : {
+        "type" : "MQTT",
+        "deviceAttributesSubscribeTopic" : "v1/devices/me/attributes",
+        "deviceAttributesTopic" : "v1/devices/me/attributes",
+        "deviceTelemetryTopic" : "v1/devices/me/telemetry",
+        "sendAckOnValidationException" : false,
+        "sparkplug" : false,
+        "sparkplugAttributesMetricNames" : [ "Properties/*", "Device Control/*", "Node Control/*" ],
+        "transportPayloadTypeConfiguration" : {
+          "transportPayloadType" : "JSON"
+        }
+      }
+    },
+    "provisionDeviceKey" : null,
+    "provisionType" : "DISABLED",
+    "softwareId" : null,
+    "transportType" : "MQTT",
+    "type" : "DEFAULT"
+  },
+  "relations" : [ ],
+  "attributes" : {
+    "SERVER_SCOPE" : [ ]
+  },
+  "calculatedFields" : [ {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "loadPercent" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "loadPercent",
+            "type" : "TS_LATEST"
+          }
+        },
+        "temperature" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "temperature",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "loadPercent",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "LESS",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : 90.0
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            }, {
+              "argument" : "temperature",
+              "operation" : "OR",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "LESS",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : 85.0
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "CRITICAL" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "temperature",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "GREATER_OR_EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 85.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              }, {
+                "argument" : "loadPercent",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "GREATER_OR_EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 90.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787650785127,
+      "failuresEnabled" : true
+    },
+    "name" : "COMBINED_FAULT",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "communicationState" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "communicationState",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "communicationState",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "STRING",
+                "ignoreCase" : false,
+                "operation" : "EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : "OK"
+                }
+              } ],
+              "valueType" : "STRING"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "WARNING" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "communicationState",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "STRING",
+                  "ignoreCase" : false,
+                  "operation" : "EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : "DEGRADED"
+                  }
+                } ],
+                "valueType" : "STRING"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787649851642,
+      "failuresEnabled" : true
+    },
+    "name" : "COMMUNICATION_DEGRADED",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "current" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "current",
+            "type" : "TS_LATEST"
+          }
+        },
+        "fuelTheftL" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "fuelTheftL",
+            "type" : "TS_LATEST"
+          }
+        },
+        "genset_status" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "genset_status",
+            "type" : "TS_LATEST"
+          }
+        },
+        "realPowerKw" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "realPowerKw",
+            "type" : "TS_LATEST"
+          }
+        },
+        "voltage" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "voltage",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "fuelTheftL",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "GREATER_OR_EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : 1.0
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            }, {
+              "argument" : "genset_status",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "BOOLEAN",
+                "operation" : "EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : true
+                }
+              } ],
+              "valueType" : "BOOLEAN"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "MAJOR" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "fuelTheftL",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "GREATER",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 1.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              }, {
+                "argument" : "genset_status",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "BOOLEAN",
+                  "operation" : "EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : false
+                  }
+                } ],
+                "valueType" : "BOOLEAN"
+              }, {
+                "argument" : "voltage",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "LESS",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 5.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              }, {
+                "argument" : "current",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "LESS",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 2.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              }, {
+                "argument" : "realPowerKw",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "LESS",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 0.1
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787653292305,
+      "failuresEnabled" : true
+    },
+    "name" : "FUEL_THEFT",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "temperature" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "temperature",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "temperature",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "LESS_OR_EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : 85.0
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "MAJOR" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "temperature",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "GREATER",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 85.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787640185200,
+      "failuresEnabled" : true
+    },
+    "name" : "HIGH_TEMPERATURE",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "fuel_level" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "fuel_level",
+            "type" : "TS_LATEST"
+          }
+        },
+        "lowFuelThresholdPercent" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "lowFuelThresholdPercent",
+            "scope" : "CLIENT_SCOPE",
+            "type" : "ATTRIBUTE"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "fuel_level",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "GREATER",
+                "value" : {
+                  "dynamicValueArgument" : "lowFuelThresholdPercent",
+                  "staticValue" : null
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "WARNING" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "fuel_level",
+                "operation" : "OR",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "LESS_OR_EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : "lowFuelThresholdPercent",
+                    "staticValue" : null
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787638545511,
+      "failuresEnabled" : true
+    },
+    "name" : "LOW_FUEL",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "operatingState" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "operatingState",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "operatingState",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "STRING",
+                "ignoreCase" : false,
+                "operation" : "NOT_EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : "MAINTENANCE"
+                }
+              } ],
+              "valueType" : "STRING"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "WARNING" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "operatingState",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "STRING",
+                  "ignoreCase" : false,
+                  "operation" : "EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : "MAINTENANCE"
+                  }
+                } ],
+                "valueType" : "STRING"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787649992207,
+      "failuresEnabled" : true
+    },
+    "name" : "MAINTENANCE",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : { },
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "current" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "current",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "current",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "LESS_OR_EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : 48.0
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "MAJOR" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "DURATION",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "current",
+                "operation" : "OR",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "GREATER",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 48.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null,
+            "unit" : "HOURS",
+            "value" : {
+              "dynamicValueArgument" : null,
+              "staticValue" : 1
+            }
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787649081619,
+      "failuresEnabled" : true
+    },
+    "name" : "OVERCURRENT",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : { },
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "loadPercent" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "loadPercent",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "loadPercent",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "LESS",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : 90.0
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "MAJOR" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "loadPercent",
+                "operation" : "OR",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "GREATER_OR_EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 90.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787649230529,
+      "failuresEnabled" : true
+    },
+    "name" : "OVERLOAD",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "voltage" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "voltage",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "voltage",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "LESS_OR_EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : 250.0
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "MAJOR" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "voltage",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "GREATER",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 250.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787648802367,
+      "failuresEnabled" : true
+    },
+    "name" : "OVERVOLTAGE",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "protectionState" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "protectionState",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "protectionState",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "STRING",
+                "ignoreCase" : false,
+                "operation" : "EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : "NORMAL"
+                }
+              } ],
+              "valueType" : "STRING"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "CRITICAL" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "protectionState",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "STRING",
+                  "ignoreCase" : false,
+                  "operation" : "EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : "TRIPPED"
+                  }
+                } ],
+                "valueType" : "STRING"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787650108649,
+      "failuresEnabled" : true
+    },
+    "name" : "PROTECTION_TRIP",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "sensorState" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "sensorState",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "sensorState",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "STRING",
+                "ignoreCase" : false,
+                "operation" : "EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : "OK"
+                }
+              } ],
+              "valueType" : "STRING"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "MAJOR" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "sensorState",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "STRING",
+                  "ignoreCase" : false,
+                  "operation" : "EQUAL",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : "FAULT"
+                  }
+                } ],
+                "valueType" : "STRING"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787649603079,
+      "failuresEnabled" : true
+    },
+    "name" : "SENSOR_FAULT",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "ALARM",
+      "arguments" : {
+        "voltage" : {
+          "defaultValue" : "",
+          "refEntityKey" : {
+            "key" : "voltage",
+            "type" : "TS_LATEST"
+          }
+        }
+      },
+      "clearRule" : {
+        "alarmDetails" : null,
+        "condition" : {
+          "type" : "SIMPLE",
+          "expression" : {
+            "type" : "SIMPLE",
+            "filters" : [ {
+              "argument" : "voltage",
+              "operation" : "AND",
+              "predicates" : [ {
+                "type" : "NUMERIC",
+                "operation" : "GREATER_OR_EQUAL",
+                "value" : {
+                  "dynamicValueArgument" : null,
+                  "staticValue" : 210.0
+                }
+              } ],
+              "valueType" : "NUMERIC"
+            } ],
+            "operation" : "AND"
+          },
+          "schedule" : null
+        },
+        "dashboardId" : null
+      },
+      "createRules" : {
+        "MAJOR" : {
+          "alarmDetails" : null,
+          "condition" : {
+            "type" : "SIMPLE",
+            "expression" : {
+              "type" : "SIMPLE",
+              "filters" : [ {
+                "argument" : "voltage",
+                "operation" : "AND",
+                "predicates" : [ {
+                  "type" : "NUMERIC",
+                  "operation" : "LESS",
+                  "value" : {
+                    "dynamicValueArgument" : null,
+                    "staticValue" : 210.0
+                  }
+                } ],
+                "valueType" : "NUMERIC"
+              } ],
+              "operation" : "AND"
+            },
+            "schedule" : null
+          },
+          "dashboardId" : null
+        }
+      },
+      "output" : null,
+      "propagate" : false,
+      "propagateRelationTypes" : null,
+      "propagateToOwner" : false,
+      "propagateToTenant" : false
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787648654973,
+      "failuresEnabled" : true
+    },
+    "name" : "UNDERVOLTAGE",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "ALARM"
+  }, {
+    "additionalInfo" : null,
+    "configuration" : {
+      "type" : "SCRIPT",
+      "arguments" : {
+        "fuelVolumeL" : {
+          "limit" : 100,
+          "refEntityKey" : {
+            "key" : "fuelVolumeL",
+            "type" : "TS_ROLLING"
+          },
+          "timeWindow" : 900000
+        }
+      },
+      "expression" : "function calculate(ctx, fuelVolumeL) {\r\n\r\n    var values = fuelVolumeL.values;\r\n\r\n    if (values == null || values.size() < 2) {\r\n        return null;\r\n    }\r\n\r\n    var first = values.get(0).value;\r\n    var last = values.get(values.size() - 1).value;\r\n\r\n    if (first == null || last == null) {\r\n        return null;\r\n    }\r\n\r\n    var fuelDrop = first - last;\r\n\r\n    if (fuelDrop <= 0) {\r\n        fuelDrop = 0;\r\n    }\r\n\r\n    return {\r\n        \"ts\": ctx.latestTs,\r\n        \"values\": {\r\n            \"fuelDropL\": toFixed(fuelDrop, 3)\r\n        }\r\n    };\r\n}",
+      "output" : {
+        "type" : "TIME_SERIES",
+        "strategy" : {
+          "type" : "IMMEDIATE",
+          "processCfs" : true,
+          "saveLatest" : true,
+          "saveTimeSeries" : true,
+          "sendWsUpdate" : true,
+          "ttl" : 0
+        }
+      }
+    },
+    "configurationVersion" : 0,
+    "debugSettings" : {
+      "allEnabled" : false,
+      "allEnabledUntil" : 1787652666363,
+      "failuresEnabled" : true
+    },
+    "name" : "fuelDropL",
+    "tenantId" : {
+      "entityType" : "TENANT",
+      "id" : "132be160-99b1-11f1-96af-4fd4ea70b752"
+    },
+    "type" : "SCRIPT"
+  } ]
+}
