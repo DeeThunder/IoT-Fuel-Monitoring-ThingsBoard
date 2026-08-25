@@ -1,0 +1,36 @@
+{
+  "type": "SCRIPT",
+  "name": "fuelDropL",
+  "debugSettings": {
+    "failuresEnabled": true,
+    "allEnabled": false,
+    "allEnabledUntil": 1787652666363
+  },
+  "configurationVersion": 0,
+  "configuration": {
+    "type": "SCRIPT",
+    "arguments": {
+      "fuelVolumeL": {
+        "refEntityKey": {
+          "key": "fuelVolumeL",
+          "type": "TS_ROLLING"
+        },
+        "limit": 100,
+        "timeWindow": 900000
+      }
+    },
+    "expression": "function calculate(ctx, fuelVolumeL) {\r\n\r\n    var values = fuelVolumeL.values;\r\n\r\n    if (values == null || values.size() < 2) {\r\n        return null;\r\n    }\r\n\r\n    var first = values.get(0).value;\r\n    var last = values.get(values.size() - 1).value;\r\n\r\n    if (first == null || last == null) {\r\n        return null;\r\n    }\r\n\r\n    var fuelDrop = first - last;\r\n\r\n    if (fuelDrop <= 0) {\r\n        fuelDrop = 0;\r\n    }\r\n\r\n    return {\r\n        \"ts\": ctx.latestTs,\r\n        \"values\": {\r\n            \"fuelDropL\": toFixed(fuelDrop, 3)\r\n        }\r\n    };\r\n}",
+    "output": {
+      "type": "TIME_SERIES",
+      "strategy": {
+        "type": "IMMEDIATE",
+        "ttl": 0,
+        "saveTimeSeries": true,
+        "saveLatest": true,
+        "sendWsUpdate": true,
+        "processCfs": true
+      }
+    }
+  },
+  "additionalInfo": null
+}
